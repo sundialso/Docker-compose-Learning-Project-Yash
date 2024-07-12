@@ -15,4 +15,4 @@ https://localhost:3002
 ```
 https://localhost:8081
 ```
-#### Make sure the port numbers 27017, 8081 and 3002 are free
+#### Make sure the port numbers 27017, 8081 and 3002 are not used by any other service.
