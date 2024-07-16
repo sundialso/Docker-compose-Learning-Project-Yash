@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp-deployment
+  labels:
+    app: nodeapp
+spec:
+  selector:
+    matchLabels:
+      app: nodeapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      containers:
+      - name: nodeapp
+        image: yashsinghalso/again:latest
+        ports:
+        - containerPort: 3002
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          value: "username"
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          value: "password"
+        - name: ME_CONFIG_MONGODB_SERVER
+          value: "mongodb-service"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp-service
+spec:
+  selector:
+    app: nodeapp
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3002
+      targetPort: 3002
+      nodePort: 30002
